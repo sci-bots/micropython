@@ -51,6 +51,7 @@ extern const struct _mp_obj_module_t time_module;
     mp_obj_t pin_class_mapper; \
     mp_obj_t pin_class_map_dict; \
     struct _pyb_uart_obj_t *pyb_stdio_uart; \
+    struct _pyb_adc_obj_t *pyb_adc_obj_all[MICROPY_HW_NUM_ADCS]; \
 
 // type definitions for the specific machine
 
@@ -120,6 +121,8 @@ __attribute__(( always_inline )) static inline mp_uint_t disable_irq(void) {
 #define MICROPY_HW_ENABLE_SPI1      (0)
 #define MICROPY_HW_ENABLE_SPI3      (0)
 #define MICROPY_HW_ENABLE_CC3K      (0)
+
+#define MICROPY_HW_NUM_ADCS         (2)
 
 #define MICROPY_HW_LED1             (pin_C5)
 #define MICROPY_HW_LED_OTYPE        (GPIO_MODE_OUTPUT_PP)

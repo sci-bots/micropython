@@ -81,6 +81,7 @@ SRC_C = \
 	hal_gpio.c \
 	help.c \
 	main.c \
+	adc.c \
 	lcd.c \
 	led.c \
 	modpyb.c \

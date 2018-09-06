@@ -1,3 +1,6 @@
+#ifndef ___TEENSY_HAL__H___
+#define ___TEENSY_HAL__H___
+
 #include <mk20dx128.h>
 #include "hal_ftm.h"
 
@@ -27,6 +30,41 @@
 #define UART0   ((UART_TypeDef *)&UART0_BDH)
 #define UART1   ((UART_TypeDef *)&UART1_BDH)
 #define UART2   ((UART_TypeDef *)&UART2_BDH)
+
+typedef struct {
+    volatile    uint32_t    SC1A;   // 00
+    volatile    uint32_t    SC1B;   // 04
+    volatile    uint32_t    CFG1;   // 08
+    volatile    uint32_t    CFG2;   // 0c
+    volatile    uint32_t    RA;     // 10
+    volatile    uint32_t    RB;     // 14
+    volatile    uint32_t    CV1;    // 18
+    volatile    uint32_t    CV2;    // 1c
+    volatile    uint32_t    SC2;    // 20
+    volatile    uint32_t    SC3;    // 24
+    volatile    uint32_t    OFS;    // 28
+    volatile    uint32_t    PG;     // 2c
+    volatile    uint32_t    MG;     // 30
+    volatile    uint32_t    CLPD;   // 34
+    volatile    uint32_t    CLPS;   // 38
+    volatile    uint32_t    CLP4;   // 3c
+    volatile    uint32_t    CLP3;   // 40
+    volatile    uint32_t    CLP2;   // 44
+    volatile    uint32_t    CLP1;   // 48
+    volatile    uint32_t    CLP0;   // 4c
+    volatile    uint32_t    PGA;    // 50
+    volatile    uint32_t    CLMD;   // 54
+    volatile    uint32_t    CLMS;   // 58
+    volatile    uint32_t    CLM4;   // 5c
+    volatile    uint32_t    CLM3;   // 60
+    volatile    uint32_t    CLM2;   // 64
+    volatile    uint32_t    CLM1;   // 68
+    volatile    uint32_t    CLM0;   // 6c
+
+} ADC_TypeDef;
+
+#define ADC0    ((ADC_TypeDef *)&ADC0_SC1A)
+#define ADC1    ((ADC_TypeDef *)&ADC1_SC1A)
 
 typedef struct {
     uint32_t dummy;
@@ -95,6 +133,8 @@ typedef struct {
 #define GPIO_PIN_TO_PORT_PCR(GPIOx, pin) \
     (&PORTA_PCR0 + (GPIO_PORT_TO_PORT_NUM(GPIOx) * 0x400) + (pin))
 
+#define GPIO_AF0_ADC0   0
+#define GPIO_AF0_ADC1   0
 #define GPIO_AF2_I2C0   2
 #define GPIO_AF2_I2C1   2
 #define GPIO_AF2_SPI0   2
@@ -126,3 +166,5 @@ struct _pin_obj_t;
 #define mp_hal_pin_low(p)  (((p)->gpio->PCOR) = (p)->pin_mask)
 #define mp_hal_pin_read(p) (((p)->gpio->PDIR >> (p)->pin) & 1)
 #define mp_hal_pin_write(p, v)  do { if (v) { mp_hal_pin_high(p); } else { mp_hal_pin_low(p); } } while (0)
+
+#endif  // #ifndef ___TEENSY_HAL__H___

@@ -8,6 +8,10 @@ import sys
 import csv
 
 SUPPORTED_FN = {
+    'ADC'   : ['DP0', 'DP1', 'DP2', 'DP3', 'SE4a', 'SE4b', 'SE5a', 'SE5b',
+               'SE6a', 'SE6b', 'SE7a', 'SE7b', 'SE8', 'SE9', 'SE10', 'SE11',
+               'SE12', 'SE13', 'SE14', 'SE15', 'SE16', 'SE17', 'SE18', 'SE19',
+               'SE21', 'SE22', 'SE23', 'DM0', 'DM1'],
     'FTM'   : ['CH0',  'CH1',  'CH2',  'CH3', 'CH4', 'CH5', 'CH6', 'CH7',
                'QD_PHA', 'QD_PHB'],
     'I2C'   : ['SDA', 'SCL'],
@@ -162,10 +166,9 @@ class Pin(object):
             print("// ",  end='')
         print('};')
         print('')
-        print('const pin_obj_t pin_{:s} = PIN({:s}, {:d}, {:d}, {:s}, {:s}, {:d});'.format(
-            self.cpu_pin_name(), self.port_letter(), self.pin,
-            self.alt_fn_count, self.alt_fn_name(null_if_0=True),
-            self.adc_num_str(), self.adc_channel))
+        print('const pin_obj_t pin_{:s} = PIN({:s}, {:d}, {:d}, {:s});'
+              .format(self.cpu_pin_name(), self.port_letter(), self.pin,
+                      self.alt_fn_count, self.alt_fn_name(null_if_0=True)))
         print('')
 
     def print_header(self, hdr_file):
@@ -276,9 +279,6 @@ class Pins(object):
                 pin = named_pin.pin()
                 if pin.is_board_pin():
                     pin.print_header(hdr_file)
-            hdr_file.write('extern const pin_obj_t * const pin_adc1[];\n')
-            hdr_file.write('extern const pin_obj_t * const pin_adc2[];\n')
-            hdr_file.write('extern const pin_obj_t * const pin_adc3[];\n')
 
     def print_qstr(self, qstr_filename):
         with open(qstr_filename, 'wt') as qstr_file:
@@ -392,9 +392,6 @@ def main():
         with open(args.prefix_filename, 'r') as prefix_file:
             print(prefix_file.read())
     pins.print()
-    pins.print_adc(1)
-    pins.print_adc(2)
-    pins.print_adc(3)
     pins.print_header(args.hdr_filename)
     pins.print_qstr(args.qstr_filename)
     pins.print_af_hdr(args.af_const_filename)

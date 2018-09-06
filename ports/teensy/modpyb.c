@@ -36,6 +36,7 @@
 #include "lib/utils/pyexec.h"
 
 #include "gccollect.h"
+#include "adc.h"
 #include "irq.h"
 #include "systick.h"
 #include "led.h"
@@ -338,7 +339,7 @@ STATIC const mp_rom_map_elem_t pyb_module_globals_table[] = {
 //    { MP_ROM_QSTR(MP_QSTR_SPI), MP_ROM_PTR(&pyb_spi_type) },
     { MP_ROM_QSTR(MP_QSTR_UART), MP_ROM_PTR(&pyb_uart_type) },
 
-//    { MP_ROM_QSTR(MP_QSTR_ADC), MP_ROM_PTR(&pyb_adc_type) },
+    { MP_ROM_QSTR(MP_QSTR_ADC), MP_ROM_PTR(&pyb_adc_type) },
 //    { MP_ROM_QSTR(MP_QSTR_ADCAll), MP_ROM_PTR(&pyb_adc_all_type) },
 
 //#if MICROPY_HW_ENABLE_DAC
