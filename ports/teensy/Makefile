@@ -85,6 +85,7 @@ SRC_C = \
 	lcd.c \
 	led.c \
 	modpyb.c \
+	modutime.c \
 	pin_defs_teensy.c \
 	reg.c \
 	teensy_hal.c \
